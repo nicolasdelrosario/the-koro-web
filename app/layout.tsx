@@ -1,5 +1,6 @@
 import "@/app/globals.css";
 
+import Header from "@/app/components/header";
 import Providers from "@/app/components/providers";
 import { constructMetadata } from "@/lib/utils/construct-metadata";
 import { cormorant, outfit } from "./fonts";
@@ -18,7 +19,10 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${cormorant.variable} ${outfit.variable}`}>
       <body className="bg-white text-black font-outfit antialiased">
-        <Providers>{children}</Providers>
+        <Providers>
+          <Header />
+          <main className="pt-20">{children}</main>
+        </Providers>
       </body>
     </html>
   );
