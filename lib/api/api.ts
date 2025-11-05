@@ -27,11 +27,17 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     // handle 401 unauthorized error
-    if (error.response.status === 401) {
+    if (error.response?.status === 401) {
       localStorage.removeItem("access_token");
 
-      // redirect to login page
-      window.location.href = "/auth/login";
+      // only redirect if we're not already on the home page or auth pages
+      const currentPath = window.location.pathname;
+      const isAuthPage = currentPath.startsWith("/auth/");
+      const isHomePage = currentPath === "/";
+
+      if (!isAuthPage && !isHomePage) {
+        window.location.href = "/auth/login";
+      }
     }
 
     return Promise.reject(error);
