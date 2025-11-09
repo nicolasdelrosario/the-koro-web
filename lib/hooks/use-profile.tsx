@@ -5,7 +5,7 @@ import { type Profile, ProfileSchema } from "@/lib/schemas/profile-schema";
 export function useProfile() {
   return useQuery<Profile>({
     queryKey: ["profile"],
-    queryFn: async () => {
+    queryFn: async (): Promise<Profile> => {
       const { data } = await api.get("/auth/profile");
       const parsed = ProfileSchema.parse(data);
       return parsed;
