@@ -1,5 +1,6 @@
 import { toast } from "sonner";
 
+// biome-ignore lint/suspicious/noExplicitAny: toast error type is any
 export const showError = (error: any, title = "Something went wrong") => {
   const message =
     error?.response?.data?.message ||
