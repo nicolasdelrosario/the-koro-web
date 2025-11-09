@@ -98,7 +98,7 @@ export function SignInForm({ onSuccess, inSheet = false }: Props = {}) {
             className="w-full font-light tracking-wide"
             disabled={isPending}
           >
-            {isPending ? "SIGNIN IN..." : "CONTINUE"}
+            {isPending ? "SIGNING IN..." : "CONTINUE"}
           </Button>
 
           {inSheet ? (
