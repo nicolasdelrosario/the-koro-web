@@ -18,10 +18,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={`${cormorant.variable} ${outfit.variable}`}>
-      <body className="bg-white text-black font-outfit antialiased">
+      <body className="font-outfit antialiased">
         <Providers>
           <Header />
-          <main className="pt-20">{children}</main>
+          <main className="pt-[64px]">{children}</main>
         </Providers>
       </body>
     </html>
