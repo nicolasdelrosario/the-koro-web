@@ -8,10 +8,25 @@ export const api = axios.create({
   },
 });
 
+// helper to safely access localStorage
+const getToken = (): string | null => {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  return localStorage.getItem("access_token");
+};
+
+const removeToken = (): void => {
+  if (typeof window !== "undefined") {
+    localStorage.removeItem("access_token");
+  }
+};
+
 // request interceptor to attach the auth token
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("access_token");
+    const token = getToken();
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -26,18 +41,13 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    // handle 401 unauthorized error
-    if (error.response?.status === 401) {
-      localStorage.removeItem("access_token");
-
-      // only redirect if we're not already on the home page or auth pages
-      const currentPath = window.location.pathname;
-      const isAuthPage = currentPath.startsWith("/auth/");
-      const isHomePage = currentPath === "/";
-
-      if (!isAuthPage && !isHomePage) {
-        window.location.href = "/auth/login";
-      }
+    // handle 401 on client-side
+    // We don't globally redirect on 401 to allow public pages (e.g., products)
+    // to be accessible even when unauthenticated. Components/pages should
+    // handle auth-specific redirects themselves.
+    if (typeof window !== "undefined" && error.response?.status === 401) {
+      removeToken();
+      // Intentionally avoid redirecting here. Let the calling code decide.
     }
 
     return Promise.reject(error);
