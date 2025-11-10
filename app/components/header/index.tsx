@@ -4,12 +4,14 @@ import Link from "next/link";
 import { useState } from "react";
 import MaxWidthWrapper from "@/app/components/max-width-wrapper";
 import { Button } from "@/components/ui/button";
+import { useCategories } from "@/lib/hooks/use-categories";
 import AccountSheet from "../account/account-sheet";
 import HeartIcon from "../icons/heart-icon";
 import MenuIcon from "../icons/menu-icon";
 import SearchIcon from "../icons/search-icon";
 
 export default function Header() {
+  const { data: categories } = useCategories();
   const [open, setOpen] = useState(false);
 
   return (
@@ -18,23 +20,20 @@ export default function Header() {
         {/* Left nav (desktop only) */}
         <nav className="hidden md:flex gap-8 text-sm font-medium uppercase tracking-wide">
           <Link
-            href="/shop"
+            href="/products"
             className="hover:text-muted-foreground transition-colors"
           >
             Shop
           </Link>
-          <Link
-            href="/collections"
-            className="hover:text-muted-foreground transition-colors"
-          >
-            Collections
-          </Link>
-          <Link
-            href="/about"
-            className="hover:text-muted-foreground transition-colors"
-          >
-            About
-          </Link>
+          {categories?.map((category) => (
+            <Link
+              key={category.id ?? category.title}
+              href={`/categories/${category.id}`}
+              className="hover:text-muted-foreground transition-colors"
+            >
+              {category.title}
+            </Link>
+          ))}
         </nav>
 
         {/* Centered logo */}
@@ -90,18 +89,19 @@ export default function Header() {
       {/* Mobile menu */}
       {open && (
         <div className="md:hidden flex flex-col items-center gap-6 py-6 bg-background border-t border-border animate-fade-in">
-          <Link href="/shop" onClick={() => setOpen(false)}>
+          <Link href="/products" onClick={() => setOpen(false)}>
             Shop
           </Link>
-          <Link href="/collections" onClick={() => setOpen(false)}>
-            Collections
-          </Link>
-          <Link href="/about" onClick={() => setOpen(false)}>
-            About
-          </Link>
-          <Link href="/cart" onClick={() => setOpen(false)}>
-            Cart (0)
-          </Link>
+          {categories?.map((category) => (
+            <Link
+              key={category.id ?? category.title}
+              href={`/categories/${category.id}`}
+              onClick={() => setOpen(false)}
+              className="hover:text-muted-foreground transition-colors"
+            >
+              {category.title}
+            </Link>
+          ))}
         </div>
       )}
     </header>

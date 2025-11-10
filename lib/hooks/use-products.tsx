@@ -31,3 +31,16 @@ export function useProduct(id: string) {
     staleTime: 1000 * 60 * 5,
   });
 }
+
+export function useProductsByCategory(categoryId: string) {
+  return useQuery<Product[]>({
+    queryKey: ["products", "category", categoryId],
+    queryFn: async (): Promise<Product[]> => {
+      const { data } = await api.get(`/products/category/${categoryId}`);
+      const parsed = productsSchema.parse(data);
+      return parsed;
+    },
+    retry: false,
+    staleTime: 1000 * 60 * 5,
+  });
+}

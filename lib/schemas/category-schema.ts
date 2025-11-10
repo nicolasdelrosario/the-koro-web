@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const categorySchema = z.object({
+  id: z.uuid("Category ID must be a valid UUID").optional(),
   title: z
     .string({
       message: "Title must be a string",
@@ -13,9 +14,7 @@ export const categorySchema = z.object({
     })
     .min(1, "Description is required"),
 
-  addedById: z
-    .uuid("User ID must be a valid UUID")
-    .nonempty("User ID is required"),
+  addedById: z.uuid("User ID must be a valid UUID").optional(),
 });
 
 export const categoriesSchema = z.array(categorySchema);
