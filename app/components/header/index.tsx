@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import AccountSheet from "@/app/components/header/account-sheet";
+import CartSheet from "@/app/components/header/cart-sheet";
+import HeartIcon from "@/app/components/icons/heart-icon";
+import MenuIcon from "@/app/components/icons/menu-icon";
+import SearchIcon from "@/app/components/icons/search-icon";
 import MaxWidthWrapper from "@/app/components/max-width-wrapper";
 import { Button } from "@/components/ui/button";
 import { useCategories } from "@/lib/hooks/use-categories";
-import AccountSheet from "../account/account-sheet";
-import HeartIcon from "../icons/heart-icon";
-import MenuIcon from "../icons/menu-icon";
-import SearchIcon from "../icons/search-icon";
 
 export default function Header() {
   const { data: categories } = useCategories();
@@ -66,12 +67,8 @@ export default function Header() {
             <HeartIcon width={18} height={18} />
           </Button>
 
-          <Link
-            href="/cart"
-            className="hidden sm:inline-block hover:text-muted-foreground font-light transition-colors text-sm tracking-wide"
-          >
-            Cart (0)
-          </Link>
+          {/* Cart */}
+          <CartSheet />
 
           {/* Mobile Menu Button */}
           <Button
