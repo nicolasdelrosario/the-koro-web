@@ -9,6 +9,7 @@ import NotFound from "@/app/components/not-found";
 import { Button } from "@/components/ui/button";
 import { useProduct } from "@/lib/hooks/use-products";
 import { useWishlist } from "@/lib/hooks/use-wishlist";
+import { useCartStore } from "@/lib/store/cart-store";
 
 export default function Page() {
   const params = useParams();
@@ -16,6 +17,8 @@ export default function Page() {
 
   const { data: product, isLoading, isError } = useProduct(id);
   const { isInWishlist, toggleWishlist } = useWishlist();
+
+  const addProduct = useCartStore((s) => s.addProduct);
 
   if (isLoading) {
     return <LoadingSkeleton variant="product" />;
@@ -40,7 +43,7 @@ export default function Page() {
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    //logic here
+    if (product) addProduct(product, 1);
   };
 
   return (
