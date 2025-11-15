@@ -1,38 +1,40 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
+import { useWishlistStore } from "@/lib/store/wishlist-store";
 
-// this hook manages the wishlist in memory
-// we are going to replace it with a backend/context in the future
 export function useWishlist() {
-  const [wishlist, setWishlist] = useState<Set<string>>(new Set());
+  const ids = useWishlistStore((s) => s.ids);
+  const add = useWishlistStore((s) => s.add);
+  const remove = useWishlistStore((s) => s.remove);
+  const toggle = useWishlistStore((s) => s.toggle);
+
+  const wishlist = new Set(ids);
 
   const isInWishlist = useCallback(
     (productId: string) => {
-      return wishlist.has(productId);
+      return ids.includes(productId);
     },
-    [wishlist],
+    [ids],
   );
 
-  const addToWishlist = useCallback((productId: string) => {
-    setWishlist((prev) => new Set(prev).add(productId));
-  }, []);
+  const addToWishlist = useCallback(
+    (productId: string) => {
+      add(productId);
+    },
+    [add],
+  );
 
-  const removeFromWishlist = useCallback((productId: string) => {
-    setWishlist((prev) => {
-      const next = new Set(prev);
-      next.delete(productId);
-      return next;
-    });
-  }, []);
+  const removeFromWishlist = useCallback(
+    (productId: string) => {
+      remove(productId);
+    },
+    [remove],
+  );
 
   const toggleWishlist = useCallback(
     (productId: string) => {
-      if (isInWishlist(productId)) {
-        removeFromWishlist(productId);
-      } else {
-        addToWishlist(productId);
-      }
+      toggle(productId);
     },
-    [isInWishlist, addToWishlist, removeFromWishlist],
+    [toggle],
   );
 
   return {
