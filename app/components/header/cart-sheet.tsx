@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import MinusIcon from "@/app/components/icons/minus-icon";
 import PlusIcon from "@/app/components/icons/plus-icon";
 import ShoppingCartIcon from "@/app/components/icons/shopping-cart-icon";
@@ -23,6 +24,8 @@ import {
 import { useCartStore } from "@/lib/store/cart-store";
 
 export default function CartSheet() {
+  const [open, setOpen] = useState(false);
+
   const products = useCartStore((s) => s.products);
   const removeProduct = useCartStore((s) => s.removeProduct);
   const updateQuantity = useCartStore((s) => s.updateQuantity);
@@ -30,7 +33,7 @@ export default function CartSheet() {
   const total = useCartStore((s) => s.getTotal());
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button
           variant="ghost"
@@ -83,7 +86,7 @@ export default function CartSheet() {
                 </p>
               </div>
 
-              <div className="space-y-6 divide-y divide-border">
+              <div className="space-y-8 divide-y divide-border/20">
                 {products.map((product) => (
                   <div key={product.id} className="pt-6 first:pt-0">
                     <div className="flex items-start gap-4">
@@ -212,6 +215,7 @@ export default function CartSheet() {
               <Button
                 asChild
                 className="w-full max-w-md font-light px-12 py-6 uppercase tracking-widest"
+                onClick={() => setOpen(false)}
               >
                 <Link href="/cart">VIEW CART</Link>
               </Button>

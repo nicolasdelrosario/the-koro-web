@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import AccountSheet from "@/app/components/header/account-sheet";
 import CartSheet from "@/app/components/header/cart-sheet";
-import HeartIcon from "@/app/components/icons/heart-icon";
+import WishlistSheet from "@/app/components/header/wishlist-sheet";
 import MenuIcon from "@/app/components/icons/menu-icon";
 import SearchIcon from "@/app/components/icons/search-icon";
 import MaxWidthWrapper from "@/app/components/max-width-wrapper";
@@ -58,14 +58,7 @@ export default function Header() {
 
           <AccountSheet />
 
-          <Button
-            variant="ghost"
-            size="icon-sm"
-            aria-label="Wishlist"
-            className="hover:text-muted-foreground transition-colors"
-          >
-            <HeartIcon width={18} height={18} />
-          </Button>
+          <WishlistSheet />
 
           {/* Cart */}
           <CartSheet />
