@@ -11,6 +11,8 @@ export const orderSchema = z.object({
   ),
 });
 
+export const ordersSchema = z.array(orderSchema);
+
 export const createOrderSchema = orderSchema;
 
 export const updateOrderSchema = orderSchema.partial();
