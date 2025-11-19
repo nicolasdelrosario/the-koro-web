@@ -3,9 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import MinusIcon from "@/app/components/icons/minus-icon";
-import PlusIcon from "@/app/components/icons/plus-icon";
-import ShoppingCartIcon from "@/app/components/icons/shopping-cart-icon";
+import MinusIcon from "@/components/icons/minus-icon";
+import PlusIcon from "@/components/icons/plus-icon";
+import ShoppingCartIcon from "@/components/icons/shopping-cart-icon";
 import {
   Accordion,
   AccordionContent,

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import MaxWidthWrapper from "@/app/components/max-width-wrapper";
+import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { Button } from "@/components/ui/button";
 
 type Props = {

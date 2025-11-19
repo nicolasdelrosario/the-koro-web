@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ProfileView } from "@/app/(routes)/auth/components/profile-view";
 import { SignInForm } from "@/app/(routes)/auth/components/sign-in-form";
-import UserIcon from "@/app/components/icons/user-icon";
+import { UserView } from "@/app/(routes)/auth/components/user-view";
+import UserIcon from "@/components/icons/user-icon";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -13,13 +13,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { useProfile } from "@/lib/hooks/use-profile";
+import { useUser } from "@/lib/hooks/use-user";
 
 export default function AccountSheet() {
-  const { data: profile, isLoading, isError } = useProfile();
+  const { data: user, isLoading, isError } = useUser();
   const [open, setOpen] = useState(false);
 
-  const isAuthenticated = !!profile && !isError && profile !== null;
+  const isAuthenticated = !!user && !isError && user !== null;
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -44,8 +44,8 @@ export default function AccountSheet() {
           <p className="text-sm text-muted-foreground">Loading...</p>
         )}
 
-        {!isLoading && isAuthenticated && profile ? (
-          <ProfileView profile={profile} />
+        {!isLoading && isAuthenticated && user ? (
+          <UserView user={user} />
         ) : (
           <SignInForm onSuccess={() => setOpen(false)} inSheet={true} />
         )}

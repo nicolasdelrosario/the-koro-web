@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import HeartIcon from "@/app/components/icons/heart-icon";
+import HeartIcon from "@/components/icons/heart-icon";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,

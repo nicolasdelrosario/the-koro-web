@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import AccountSheet from "@/app/components/header/account-sheet";
-import CartSheet from "@/app/components/header/cart-sheet";
-import WishlistSheet from "@/app/components/header/wishlist-sheet";
-import MenuIcon from "@/app/components/icons/menu-icon";
-import SearchIcon from "@/app/components/icons/search-icon";
-import MaxWidthWrapper from "@/app/components/max-width-wrapper";
+import AccountSheet from "@/components/header/account-sheet";
+import CartSheet from "@/components/header/cart-sheet";
+import WishlistSheet from "@/components/header/wishlist-sheet";
+import MenuIcon from "@/components/icons/menu-icon";
+import SearchIcon from "@/components/icons/search-icon";
+import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { Button } from "@/components/ui/button";
 import { useCategories } from "@/lib/hooks/use-categories";
 
