@@ -19,7 +19,7 @@ export function useUser() {
   });
 }
 
-export function useUpdateProfile() {
+export function useUpdateUser() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (payload: Partial<User>) => {
