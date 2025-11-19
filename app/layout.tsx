@@ -1,7 +1,7 @@
 import "@/app/globals.css";
 
-import Header from "@/app/components/header";
-import Providers from "@/app/components/providers";
+import Header from "@/components/header";
+import Providers from "@/components/providers";
 import { constructMetadata } from "@/lib/utils/construct-metadata";
 import { cormorant, outfit } from "./fonts";
 

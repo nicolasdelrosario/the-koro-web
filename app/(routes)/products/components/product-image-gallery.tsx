@@ -2,9 +2,9 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { useState } from "react";
-import HeartIcon from "@/app/components/icons/heart-icon";
+import HeartIcon from "@/components/icons/heart-icon";
 import { useImageCarousel } from "@/lib/hooks/use-image-carousel";
-import type { Product } from "@/lib/schemas/product-schema";
+import type { Product } from "@/lib/schemas/product/product-schema";
 
 type Props = {
   product: Product;
@@ -111,7 +111,7 @@ export default function ProductImageGallery({
       {/* Image indicators */}
       {images.length > 1 && (
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
-          {images.map((_, idx) => (
+          {images.map((_: string, idx: number) => (
             <button
               key={images[idx]}
               type="button"

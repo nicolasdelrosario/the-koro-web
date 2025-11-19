@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Price from "@/app/(routes)/products/components/price";
 import ProductImageGallery from "@/app/(routes)/products/components/product-image-gallery";
 import { useWishlist } from "@/lib/hooks/use-wishlist";
-import type { Product } from "@/lib/schemas/product-schema";
+import type { Product } from "@/lib/schemas/product/product-schema";
 
 type Props = {
   product: Product;

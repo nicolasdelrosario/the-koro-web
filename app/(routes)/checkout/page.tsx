@@ -1,7 +1,7 @@
 "use client";
 
 import EmptyState from "@/app/(routes)/products/components/empty-state";
-import MaxWidthWrapper from "@/app/components/max-width-wrapper";
+import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { useCartStore } from "@/lib/store/cart-store";
 import { ShippingForm } from "./shipping-form";
 

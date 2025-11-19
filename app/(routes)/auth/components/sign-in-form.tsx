@@ -14,10 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { SheetClose } from "@/components/ui/sheet";
 import { useSignIn } from "@/lib/hooks/use-sign-in";
-import {
-  type SignInFormValues,
-  SignInSchema,
-} from "@/lib/schemas/sign-in-schema";
+import { type SignIn, signInSchema } from "@/lib/schemas/auth/sign-in-schema";
 
 type Props = {
   onSuccess?: () => void;
@@ -25,14 +22,14 @@ type Props = {
 };
 
 export function SignInForm({ onSuccess, inSheet = false }: Props = {}) {
-  const form = useForm<SignInFormValues>({
-    resolver: zodResolver(SignInSchema),
+  const form = useForm<SignIn>({
+    resolver: zodResolver(signInSchema),
     defaultValues: { email: "", password: "" },
   });
 
   const { mutate: signIn, isPending } = useSignIn();
 
-  const onSubmit = (values: SignInFormValues) => {
+  const onSubmit = (values: SignIn) => {
     signIn(values, {
       onSuccess: () => {
         onSuccess?.();

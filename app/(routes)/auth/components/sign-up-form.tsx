@@ -13,14 +13,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useSignUp } from "@/lib/hooks/use-sign-up";
-import {
-  type SignUpFormValues,
-  SignUpSchema,
-} from "@/lib/schemas/sign-up-schema";
+import { type SignUp, signUpSchema } from "@/lib/schemas/auth/sign-up-schema";
 
 export function SignUpForm() {
-  const form = useForm<SignUpFormValues>({
-    resolver: zodResolver(SignUpSchema),
+  const form = useForm<SignUp>({
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: "",
       name: "",
@@ -30,7 +27,7 @@ export function SignUpForm() {
 
   const { mutate: signUp, isPending } = useSignUp();
 
-  const onSubmit = (data: SignUpFormValues) => {
+  const onSubmit = (data: SignUp) => {
     signUp(data);
   };
 

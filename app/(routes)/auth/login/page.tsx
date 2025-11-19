@@ -1,5 +1,5 @@
 import { SignInForm } from "@/app/(routes)/auth/components/sign-in-form";
-import MaxWidthWrapper from "@/app/components/max-width-wrapper";
+import MaxWidthWrapper from "@/components/max-width-wrapper";
 
 export default function Page() {
   return (

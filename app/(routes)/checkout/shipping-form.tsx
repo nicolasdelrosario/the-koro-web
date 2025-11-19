@@ -14,7 +14,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useCreateOrder } from "@/lib/hooks/use-orders";
-import { type Shipping, shippingSchema } from "@/lib/schemas/shipping-schema";
+import {
+  type CreateShipping,
+  createShippingSchema,
+} from "@/lib/schemas/order/create-shipping-schema";
 import { useCartStore } from "@/lib/store/cart-store";
 
 export function ShippingForm() {
@@ -25,8 +28,8 @@ export function ShippingForm() {
 
   const { mutate: createOrder, isPending } = useCreateOrder();
 
-  const form = useForm<Shipping>({
-    resolver: zodResolver(shippingSchema),
+  const form = useForm<CreateShipping>({
+    resolver: zodResolver(createShippingSchema),
     defaultValues: {
       phone: "",
       name: "",
@@ -39,7 +42,7 @@ export function ShippingForm() {
     mode: "onBlur",
   });
 
-  const onSubmit = (values: Shipping) => {
+  const onSubmit = (values: CreateShipping) => {
     if (products.length === 0) return;
 
     createOrder({

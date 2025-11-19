@@ -1,9 +1,9 @@
 "use client";
 
-import MaxWidthWrapper from "@/app/components/max-width-wrapper";
+import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { useCartStore } from "@/lib/store/cart-store";
 import EmptyState from "../products/components/empty-state";
-import CartItems from "./components/cart-items";
+import CartProducts from "./components/cart-products";
 import CartSummary from "./components/cart-summary";
 
 export default function Page() {
@@ -37,7 +37,7 @@ export default function Page() {
 
       {/* cart content */}
       <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-12">
-        <CartItems />
+        <CartProducts />
         <CartSummary />
       </div>
     </MaxWidthWrapper>

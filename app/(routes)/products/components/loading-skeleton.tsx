@@ -1,4 +1,4 @@
-import MaxWidthWrapper from "@/app/components/max-width-wrapper";
+import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { Skeleton } from "@/components/ui/skeleton";
 
 type LoadingSkeletonProps = {

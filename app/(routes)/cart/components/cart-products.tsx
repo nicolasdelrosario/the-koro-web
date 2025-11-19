@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import MinusIcon from "@/app/components/icons/minus-icon";
-import PlusIcon from "@/app/components/icons/plus-icon";
+import MinusIcon from "@/components/icons/minus-icon";
+import PlusIcon from "@/components/icons/plus-icon";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/lib/store/cart-store";
 
-export default function CartItems() {
+export default function CartProducts() {
   const products = useCartStore((s) => s.products);
   const removeProduct = useCartStore((s) => s.removeProduct);
   const updateQuantity = useCartStore((s) => s.updateQuantity);

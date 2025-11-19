@@ -1,4 +1,4 @@
-import type { Product } from "@/lib/schemas/product-schema";
+import type { Product } from "@/lib/schemas/product/product-schema";
 import ProductCard from "./product-card";
 
 type Props = {
