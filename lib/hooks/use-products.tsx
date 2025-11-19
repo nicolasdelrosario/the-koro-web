@@ -3,16 +3,15 @@ import { api } from "@/lib/api/api";
 import {
   type Product,
   productSchema,
-  productsSchema,
-} from "@/lib/schemas/product-schema";
+} from "@/lib/schemas/product/product-schema";
 
 export function useProducts() {
   return useQuery<Product[]>({
     queryKey: ["products"],
     queryFn: async (): Promise<Product[]> => {
       const { data } = await api.get("/products");
-      const parsed = productsSchema.parse(data);
-      return parsed;
+
+      return data.map((product: Product) => productSchema.parse(product));
     },
     retry: false,
     staleTime: 1000 * 60 * 5,
@@ -24,8 +23,8 @@ export function useProduct(id: string) {
     queryKey: ["product", id],
     queryFn: async (): Promise<Product> => {
       const { data } = await api.get(`/products/${id}`);
-      const parsed = productSchema.parse(data);
-      return parsed;
+
+      return productSchema.parse(data);
     },
     retry: false,
     staleTime: 1000 * 60 * 5,
@@ -37,8 +36,8 @@ export function useProductsByCategory(categoryId: string) {
     queryKey: ["products", "category", categoryId],
     queryFn: async (): Promise<Product[]> => {
       const { data } = await api.get(`/products/category/${categoryId}`);
-      const parsed = productsSchema.parse(data);
-      return parsed;
+
+      return data.map((product: Product) => productSchema.parse(product));
     },
     retry: false,
     staleTime: 1000 * 60 * 5,

@@ -3,22 +3,33 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/api/api";
-import {
-  type CreateOrder,
-  type Order,
-  orderSchema,
-  ordersSchema,
-} from "@/lib/schemas/order-schema";
+import type { CreateOrder } from "@/lib/schemas/order/create-order-schema";
+import { type Order, orderSchema } from "@/lib/schemas/order/order-schema";
 import { useCartStore } from "@/lib/store/cart-store";
 import { showError, showSuccess } from "@/lib/utils/toast";
+
+export function useMyOrders() {
+  return useQuery<Order[]>({
+    queryKey: ["orders", "me"],
+    queryFn: async (): Promise<Order[]> => {
+      const { data } = await api.get("/orders/me");
+
+      console.log(data);
+
+      return data.map((order: Order) => orderSchema.parse(order));
+    },
+    retry: false,
+    staleTime: 1000 * 60 * 2,
+  });
+}
 
 export function useOrders() {
   return useQuery<Order[]>({
     queryKey: ["orders"],
     queryFn: async (): Promise<Order[]> => {
       const { data } = await api.get("/orders");
-      const parsed = ordersSchema.parse(data);
-      return parsed;
+
+      return data.map((order: Order) => orderSchema.parse(order));
     },
     retry: false,
     staleTime: 1000 * 60 * 5,
@@ -30,8 +41,8 @@ export function useOrder(id: string) {
     queryKey: ["order", id],
     queryFn: async (): Promise<Order> => {
       const { data } = await api.get(`/orders/${id}`);
-      const parsed = orderSchema.parse(data);
-      return parsed;
+
+      return orderSchema.parse(data);
     },
     retry: false,
     staleTime: 1000 * 60 * 5,
@@ -53,7 +64,7 @@ export function useCreateOrder() {
       }
 
       const { data } = await api.post("/orders", payload);
-      return data as { id: string };
+      return orderSchema.parse(data);
     },
     onSuccess: (data) => {
       showSuccess("Order placed", `Order #${data.id} created successfully.`);

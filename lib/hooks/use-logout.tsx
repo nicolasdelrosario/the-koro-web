@@ -10,8 +10,8 @@ export const useLogout = () => {
     mutationFn: async () => {
       localStorage.removeItem("access_token");
 
-      // Invalidate profile query instead of clearing all queries
-      queryClient.invalidateQueries({ queryKey: ["profile"] });
+      // Invalidate user query instead of clearing all queries
+      queryClient.invalidateQueries({ queryKey: ["user"] });
 
       return true;
     },
@@ -24,7 +24,7 @@ export const useLogout = () => {
       // Even if there's an error, we still want to log out locally
       localStorage.removeItem("access_token");
 
-      queryClient.invalidateQueries({ queryKey: ["profile"] });
+      queryClient.invalidateQueries({ queryKey: ["user"] });
       router.push("/");
       router.refresh();
     },
