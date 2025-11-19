@@ -2,7 +2,7 @@ import { z } from "zod";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { type CartProduct, cartProductSchema } from "@/lib/schemas/cart-schema";
-import type { Product } from "@/lib/schemas/product-schema";
+import type { Product } from "@/lib/schemas/product/product-schema";
 
 type CartState = {
   products: CartProduct[];
