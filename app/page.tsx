@@ -1,7 +1,7 @@
 "use client";
 
 import { useProducts } from "@/lib/hooks/use-products";
-import EmptyState from "./(routes)/products/components/empty-state";
+import EmptyState from "../components/empty-state/empty-state";
 import LoadingSkeleton from "./(routes)/products/components/loading-skeleton";
 import Products from "./(routes)/products/components/products";
 

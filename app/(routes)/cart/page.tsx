@@ -2,7 +2,7 @@
 
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { useCartStore } from "@/lib/store/cart-store";
-import EmptyState from "../products/components/empty-state";
+import EmptyState from "../../../components/empty-state/empty-state";
 import CartProducts from "./components/cart-products";
 import CartSummary from "./components/cart-summary";
 
