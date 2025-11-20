@@ -50,6 +50,7 @@ export default function AccountSidebar() {
 
       {/* logout */}
       <button
+        type="submit"
         onClick={() => logout()}
         className="text-sm text-muted-foreground hover:text-foreground transition-colors text-left"
       >

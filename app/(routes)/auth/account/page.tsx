@@ -1,20 +1,18 @@
 "use client";
 
-import MaxWidthWrapper from "@/components/max-width-wrapper";
-import { useUser } from "@/lib/hooks/use-user";
 import AccountDetails from "@/app/(routes)/auth/account/components/account-details";
 import AccountEditForm from "@/app/(routes)/auth/account/components/account-edit-form";
 import AccountSidebar from "@/app/(routes)/auth/account/components/account-sidebar";
 import LoadingSkeleton from "@/app/(routes)/auth/account/components/loading-skeleton";
 import EmptyState from "@/components/empty-state/empty-state";
+import MaxWidthWrapper from "@/components/max-width-wrapper";
+import { useUser } from "@/lib/hooks/use-user";
 
 export default function Page() {
   const { data: user, isLoading } = useUser();
 
   if (isLoading) {
-    return (
-      <LoadingSkeleton />
-    );
+    return <LoadingSkeleton />;
   }
 
   if (!user) {

@@ -5,7 +5,6 @@ export default function LoadingSkeleton() {
   return (
     <MaxWidthWrapper className="py-12">
       <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-12">
-        
         {/* sidebar */}
         <div className="space-y-8">
           <div className="space-y-2">

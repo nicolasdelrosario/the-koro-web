@@ -22,7 +22,7 @@ import type { User } from "@/lib/schemas/auth/user-schema";
 export default function AccountEditForm({ user }: { user: Partial<User> }) {
   const { mutate: update, isPending } = useUpdateUser();
 
-    const form = useForm<UpdateUser>({
+  const form = useForm<UpdateUser>({
     resolver: zodResolver(updateUserSchema),
     defaultValues: {
       name: "",

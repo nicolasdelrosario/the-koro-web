@@ -103,12 +103,17 @@ export function UserView({ user }: Props) {
             </div>
           </div>
         ) : (
-          <div className="border border-dashed border-border rounded-lg p-6 mt-4 text-center">
+          <div
+            className="border border-dashed border-border rounded-lg p-6 mt-4 
+                flex flex-col items-center text-center gap-2"
+          >
             <PackageIcon width={24} height={24} />
+
             <p className="text-sm text-muted-foreground">
               You have no order history
             </p>
-            <p className="text-xs text-muted-foreground mt-1">
+
+            <p className="text-xs text-muted-foreground">
               Start shopping to see your orders here
             </p>
           </div>

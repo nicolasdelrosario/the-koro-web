@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { User } from "@/lib/schemas/auth/user-schema";
 
 type Props = {
