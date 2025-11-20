@@ -33,7 +33,13 @@ export const orderSchema = z.object({
         id: z.uuid(),
         unitPrice: z.number().nonnegative(),
         quantity: z.number().int().min(1),
-        product: productSchema.pick({ id: true, title: true }),
+        product: productSchema.pick({
+          id: true,
+          title: true,
+          price: true,
+          stock: true,
+          images: true,
+        }),
       }),
     )
     .default([]),
