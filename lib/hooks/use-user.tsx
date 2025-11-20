@@ -5,6 +5,7 @@ import {
   jwtPayloadToUser,
 } from "@/lib/schemas/auth/jwt-payload-schema";
 import type { User } from "@/lib/schemas/auth/user-schema";
+import { showError, showSuccess } from "@/lib/utils/toast";
 
 export function useUser() {
   return useQuery<Partial<User>>({
@@ -21,14 +22,23 @@ export function useUser() {
 
 export function useUpdateUser() {
   const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: async (payload: Partial<User>) => {
       const { data } = await api.patch("/auth/profile", payload);
 
-      return jwtPayloadToUser(jwtPayloadSchema.parse(data));
+      localStorage.setItem("access_token", data.access_token);
+
+      return data;
     },
-    onSuccess: (data) => {
-      queryClient.setQueryData(["user"], data);
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      showSuccess("Profile updated", "Your account information was saved.");
+    },
+
+    onError: (err) => {
+      showError(err, "Couldn't update your profile");
     },
   });
 }
