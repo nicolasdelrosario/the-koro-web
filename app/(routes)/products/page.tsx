@@ -1,8 +1,8 @@
 "use client";
 
-import EmptyState from "@/components/empty-state/empty-state";
 import LoadingSkeleton from "@/app/(routes)/products/components/loading-skeleton";
 import Products from "@/app/(routes)/products/components/products";
+import EmptyState from "@/components/empty-state/empty-state";
 import { useProducts } from "@/lib/hooks/use-products";
 
 export default function Page() {

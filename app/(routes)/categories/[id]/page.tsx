@@ -1,9 +1,9 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import EmptyState from "@/components/empty-state/empty-state";
 import LoadingSkeleton from "@/app/(routes)/products/components/loading-skeleton";
 import Products from "@/app/(routes)/products/components/products";
+import EmptyState from "@/components/empty-state/empty-state";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { useCategory } from "@/lib/hooks/use-categories";
 import { useProductsByCategory } from "@/lib/hooks/use-products";
