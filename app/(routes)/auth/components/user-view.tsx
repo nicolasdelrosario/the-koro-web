@@ -139,7 +139,7 @@ export function UserView({ user }: Props) {
               className="h-auto p-0 text-sm font-normal underline-offset-4"
               asChild
             >
-              <Link href="/account/edit">Edit my information</Link>
+              <Link href="/auth/account">Edit my information</Link>
             </Button>
           </SheetClose>
         </div>
@@ -169,7 +169,7 @@ export function UserView({ user }: Props) {
         {/* View my account */}
         <SheetClose asChild>
           <Button className="w-full mt-10 font-light tracking-wide" asChild>
-            <Link href="/account">VIEW MY ACCOUNT</Link>
+            <Link href="/auth/account">VIEW MY ACCOUNT</Link>
           </Button>
         </SheetClose>
 
