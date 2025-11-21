@@ -37,6 +37,7 @@ export const useWishlistStore = create<WishlistState>()(
     {
       name: "the-koro-wishlist",
       version: 1,
+      skipHydration: true,
     },
   ),
 );

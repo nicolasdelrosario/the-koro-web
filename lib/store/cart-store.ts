@@ -92,6 +92,7 @@ export const useCartStore = create<CartState>()(
     {
       name: "the-koro-cart",
       version: 1,
+      skipHydration: true,
     },
   ),
 );

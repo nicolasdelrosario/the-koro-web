@@ -1,9 +1,9 @@
 "use client";
 
+import LoadingSkeleton from "@/app/(routes)/products/components/loading-skeleton";
+import Products from "@/app/(routes)/products/components/products";
+import EmptyState from "@/components/empty-state/empty-state";
 import { useProducts } from "@/lib/hooks/use-products";
-import EmptyState from "../components/empty-state/empty-state";
-import LoadingSkeleton from "./(routes)/products/components/loading-skeleton";
-import Products from "./(routes)/products/components/products";
 
 export default function Home() {
   const { data: products, isLoading } = useProducts();
