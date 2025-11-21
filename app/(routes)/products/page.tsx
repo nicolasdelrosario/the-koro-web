@@ -1,22 +1,14 @@
 "use client";
 
-import LoadingSkeleton from "@/app/(routes)/products/components/loading-skeleton";
-import Products from "@/app/(routes)/products/components/products";
-import EmptyState from "@/components/empty-state/empty-state";
-import { useProducts } from "@/lib/hooks/use-products";
+import ProductsListView from "@/app/(routes)/products/components/products-list-view";
 
-export default function Page() {
-  const { data: products, isLoading } = useProducts();
+const DEFAULT_PARAMS = {
+  page: 1,
+  limit: 12,
+  sortBy: "createdAt" as const,
+  order: "DESC" as const,
+};
 
-  return (
-    <>
-      {isLoading && <LoadingSkeleton variant="list" />}
-
-      {!isLoading && products && products.length > 0 ? (
-        <Products products={products} />
-      ) : (
-        <EmptyState />
-      )}
-    </>
-  );
+export default function ProductsPage() {
+  return <ProductsListView defaultParams={DEFAULT_PARAMS} />;
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import HeartIcon from "@/components/icons/heart-icon";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,12 +19,21 @@ import { useCartStore } from "@/lib/store/cart-store";
 export default function WishlistSheet() {
   const [open, setOpen] = useState(false);
   const { wishlist, removeFromWishlist } = useWishlist();
-  const { data: products } = useProducts();
   const addProduct = useCartStore((s) => s.addProduct);
 
-  const items = (products ?? []).filter((p) =>
-    p.id ? wishlist.has(String(p.id)) : false,
-  );
+  const { data } = useProducts({
+    page: 1,
+    limit: 100,
+    sortBy: "createdAt",
+    order: "DESC",
+  });
+
+  const items = useMemo(() => {
+    const productsList = data?.data ?? [];
+    return productsList.filter((p) =>
+      p.id ? wishlist.has(String(p.id)) : false,
+    );
+  }, [data?.data, wishlist]);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
