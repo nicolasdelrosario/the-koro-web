@@ -1,20 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api/api";
 import {
+  createPaginatedSchema,
+  type Paginated,
+} from "@/lib/schemas/common/paginated-schema";
+import {
   type Product,
   productSchema,
 } from "@/lib/schemas/product/product-schema";
+import type { ProductsParams } from "@/lib/schemas/product/products-params-schema";
 
-export function useProducts() {
-  return useQuery<Product[]>({
-    queryKey: ["products"],
-    queryFn: async (): Promise<Product[]> => {
-      const { data } = await api.get("/products");
+export function useProducts(params: ProductsParams) {
+  const schema = createPaginatedSchema(productSchema);
 
-      return data.map((product: Product) => productSchema.parse(product));
+  return useQuery<Paginated<Product>>({
+    queryKey: ["products", params],
+    queryFn: async (): Promise<Paginated<Product>> => {
+      const { data } = await api.get("/products", { params });
+      return schema.parse(data);
     },
     retry: false,
     staleTime: 1000 * 60 * 5,
+    placeholderData: (prev) => prev,
   });
 }
 
@@ -28,6 +35,7 @@ export function useProduct(id: string) {
     },
     retry: false,
     staleTime: 1000 * 60 * 5,
+    enabled: !!id,
   });
 }
 
@@ -41,5 +49,6 @@ export function useProductsByCategory(categoryId: string) {
     },
     retry: false,
     staleTime: 1000 * 60 * 5,
+    enabled: !!categoryId,
   });
 }
