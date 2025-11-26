@@ -9,18 +9,24 @@ export default function LoadingSkeleton({
   variant = "product",
 }: LoadingSkeletonProps) {
   if (variant === "list") {
-    return (
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 p-4">
-        {Array.from({ length: 8 }).map(() => (
-          <div
-            key={`skeleton-${crypto.randomUUID()}`}
-            className="flex flex-col gap-2"
-          >
-            <Skeleton className="w-full aspect-3/4" />
-            <Skeleton className="h-4 w-3/4" />
-            <Skeleton className="h-3 w-1/4" />
-          </div>
-        ))}
+   return (
+      <div className="space-y-8 px-4 py-6">
+        {/* top controls (pagination + sort) */}
+        <div className="flex justify-between items-center">
+          <Skeleton className="h-10 w-72" />
+          <Skeleton className="h-10 w-24" />
+        </div>
+
+        {/* products grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+          {Array.from({ length: 12 }).map((_) => (
+            <div key={`skeleton-item-${crypto.randomUUID()}`} className="flex flex-col gap-3">
+              <Skeleton className="w-full aspect-3/4 rounded-none" />
+              <Skeleton className="h-4 w-3/4" />
+              <Skeleton className="h-3 w-1/4" />
+            </div>
+          ))}
+        </div>
       </div>
     );
   }

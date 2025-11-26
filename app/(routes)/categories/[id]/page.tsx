@@ -1,27 +1,23 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import LoadingSkeleton from "@/app/(routes)/products/components/loading-skeleton";
-import Products from "@/app/(routes)/products/components/products";
-import EmptyState from "@/components/empty-state/empty-state";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { useCategory } from "@/lib/hooks/use-categories";
-import { useProductsByCategory } from "@/lib/hooks/use-products";
+import ProductsListView from "../../products/components/products-list-view";
 
 export default function CategoryPage() {
   const params = useParams();
   const id = String(params?.id);
 
-  const { data: products, isLoading } = useProductsByCategory(id);
   const { data: category } = useCategory(id);
 
-  if (isLoading) return <LoadingSkeleton variant="list" />;
-
-  if (!products || products.length === 0) {
-    return (
-      <EmptyState title="No products in this category" showAction={true} />
-    );
-  }
+  const DEFAULT_PARAMS = {
+    categoryId: category?.id,
+    page: 1,
+    limit: 12,
+    sortBy: "createdAt" as const,
+    order: "DESC" as const,
+  };
 
   return (
     <>
@@ -36,7 +32,7 @@ export default function CategoryPage() {
         </MaxWidthWrapper>
       )}
 
-      <Products products={products} />
+      <ProductsListView defaultParams={DEFAULT_PARAMS} />
     </>
   );
 }

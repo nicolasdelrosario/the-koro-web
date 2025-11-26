@@ -1,19 +1,13 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
   Pagination,
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
 } from "@/components/ui/pagination";
-import {
-  generatePageNumbers,
-  getNextPage,
-  getPreviousPage,
-} from "@/lib/utils/pagination";
+import { generatePageNumbers } from "@/lib/utils/pagination";
 
 interface ProductsPaginationProps {
   currentPage: number;
@@ -28,55 +22,45 @@ export function ProductsPagination({
 }: ProductsPaginationProps) {
   const pageNumbers = generatePageNumbers({ currentPage, totalPages });
 
-  const isFirstPage = currentPage === 1;
-  const isLastPage = currentPage === totalPages;
-
   return (
-    <div className="py-12 flex justify-center">
-      <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              onClick={() => onPageChange(getPreviousPage(currentPage))}
-              className={
-                isFirstPage
-                  ? "pointer-events-none opacity-40"
-                  : "cursor-pointer hover:bg-transparent hover:text-foreground"
-              }
-              aria-disabled={isFirstPage}
-            />
-          </PaginationItem>
+    <div className="py-10 flex">
+      <Pagination className="justify-start">
+        <PaginationContent
+          className="
+            flex items-center gap-8 
+            text-[13px] tracking-[0.25em] 
+            uppercase font-light
+          "
+        >
+          <p className="text-[13px] tracking-[0.25em] uppercase font-light opacity-70">
+            View by
+          </p>
 
-          {pageNumbers.map((pageNum, index) =>
-            pageNum === "ellipsis" ? (
-              <PaginationItem key={`ellipsis-${pageNum + index}`}>
-                <PaginationEllipsis />
+          {/* pages */}
+          {pageNumbers.map((num, index) =>
+            num === "ellipsis" ? (
+              <PaginationItem key={`ellipsis-${num + index}`}>
+                <PaginationEllipsis className="opacity-60" />
               </PaginationItem>
             ) : (
-              <PaginationItem key={pageNum}>
-                <PaginationLink
-                  onClick={() => onPageChange(pageNum)}
-                  isActive={currentPage === pageNum}
-                  className="cursor-pointer hover:bg-transparent hover:text-foreground"
-                  aria-current={currentPage === pageNum ? "page" : undefined}
+              <PaginationItem key={num}>
+                <Button
+                  variant="ghost"
+                  onClick={() => onPageChange(num)}
+                  className={`
+                    h-auto p-0 m-0
+                    text-[13px] tracking-[0.25em] uppercase font-light
+                    bg-transparent shadow-none
+                    transition-opacity
+                    cursor-pointer
+                    ${currentPage === num ? "opacity-100" : "opacity-50 hover:opacity-60"}
+                  `}
                 >
-                  {pageNum}
-                </PaginationLink>
+                  {num}
+                </Button>
               </PaginationItem>
             ),
           )}
-
-          <PaginationItem>
-            <PaginationNext
-              onClick={() => onPageChange(getNextPage(currentPage, totalPages))}
-              className={
-                isLastPage
-                  ? "pointer-events-none opacity-40"
-                  : "cursor-pointer hover:bg-transparent hover:text-foreground"
-              }
-              aria-disabled={isLastPage}
-            />
-          </PaginationItem>
         </PaginationContent>
       </Pagination>
     </div>

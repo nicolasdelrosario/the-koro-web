@@ -4,8 +4,9 @@ import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 import LoadingSkeleton from "@/app/(routes)/products/components/loading-skeleton";
 import Products from "@/app/(routes)/products/components/products";
+import { ProductsPagination } from "@/app/(routes)/products/components/products-pagination";
+import SortBy from "@/app/(routes)/products/components/sort-by";
 import EmptyState from "@/components/empty-state/empty-state";
-import { Button } from "@/components/ui/button";
 import { useProducts } from "@/lib/hooks/use-products";
 import { useSearchParamsManager } from "@/lib/hooks/use-search-params";
 import type { ProductsParams } from "@/lib/schemas/product/products-params-schema";
@@ -28,7 +29,7 @@ export default function ProductsListView({ defaultParams }: Props) {
     const order =
       (searchParams.get("order") as ProductsParams["order"]) ??
       defaultParams.order;
-    const categoryId = searchParams.get("categoryId") ?? undefined;
+    const categoryId = defaultParams.categoryId ?? undefined;
     const inStock = searchParams.get("inStock") === "true" ? true : undefined;
 
     return { q, page, limit, sortBy, order, categoryId, inStock };
@@ -51,38 +52,19 @@ export default function ProductsListView({ defaultParams }: Props) {
 
       {!isLoading && hasProducts ? (
         <>
-          <Products products={data?.data ?? []} />
+          {/* pagination + sort + filters */}
+          <div className="flex justify-between items-center py-6 px-4 gap-3">
+            <ProductsPagination
+              currentPage={data?.meta.currentPage ?? 1}
+              totalPages={data?.meta.totalPages ?? 1}
+              onPageChange={handlePageChange}
+            />
 
-          {data?.meta && (
-            <div className="flex items-center justify-center gap-4 p-4">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() =>
-                  handlePageChange(Math.max(1, (params.page ?? 1) - 1))
-                }
-              >
-                Previous
-              </Button>
-              <span className="text-sm text-muted-foreground">
-                Page {data?.meta.currentPage} of {data?.meta.totalPages}
-              </span>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() =>
-                  handlePageChange(
-                    Math.min(
-                      data?.meta.totalPages ?? 1,
-                      (params.page ?? 1) + 1,
-                    ),
-                  )
-                }
-              >
-                Next
-              </Button>
-            </div>
-          )}
+            <SortBy />
+          </div>
+
+          {/* Products */}
+          <Products products={data?.data ?? []} />
         </>
       ) : (
         !isLoading && <EmptyState />
