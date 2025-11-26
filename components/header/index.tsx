@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import AccountSheet from "@/components/header/account-sheet";
 import CartSheet from "@/components/header/cart-sheet";
 import WishlistSheet from "@/components/header/wishlist-sheet";
@@ -54,7 +54,9 @@ export default function Header() {
 
         {/* Actions (Right side) */}
         <div className="flex items-center gap-5 md:gap-6 ml-auto">
-          <SearchInput />
+          <Suspense fallback={null}>
+            <SearchInput />
+          </Suspense>
           <AccountSheet />
           <WishlistSheet />
           <CartSheet />

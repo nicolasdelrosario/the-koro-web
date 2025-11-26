@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import ProductsListView from "@/app/(routes)/products/components/products-list-view";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 
@@ -22,7 +23,9 @@ export default function HomePage() {
         </p>
       </MaxWidthWrapper>
 
-      <ProductsListView defaultParams={DEFAULT_HOME_PARAMS} />
+      <Suspense fallback={null}>
+        <ProductsListView defaultParams={DEFAULT_HOME_PARAMS} />
+      </Suspense>
     </>
   );
 }
