@@ -2,6 +2,7 @@ import "@/app/globals.css";
 
 import Header from "@/components/header";
 import Providers from "@/components/providers";
+import { env } from "@/config/env";
 import { constructMetadata } from "@/lib/utils/construct-metadata";
 import { cormorant, outfit } from "./fonts";
 
@@ -18,6 +19,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={`${cormorant.variable} ${outfit.variable}`}>
+      {env.NODE_ENV === "development" && (
+        <head>
+          <script src="https://unpkg.com/react-scan/dist/auto.global.js" />
+        </head>
+      )}
       <body className="font-outfit antialiased">
         <Providers>
           <Header />
