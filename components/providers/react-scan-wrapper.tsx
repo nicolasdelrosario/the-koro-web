@@ -2,6 +2,7 @@
 
 import { type ReactNode, useEffect } from "react";
 import { scan } from "react-scan";
+import { env } from "@/config/env";
 
 export default function ReactScanWrapper({
   children,
@@ -9,9 +10,9 @@ export default function ReactScanWrapper({
   children: ReactNode;
 }) {
   useEffect(() => {
-    scan({
-      enabled: true,
-    });
+    if (env.NODE_ENV === "development") {
+      scan({ enabled: true });
+    }
   }, []);
 
   return <>{children}</>;
