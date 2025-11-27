@@ -23,6 +23,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/categories/${id}`, {
       next: { revalidate: 300 },
+      headers: {
+        "User-Agent": "TheKoroSSR",
+        Accept: "application/json",
+      },
     });
 
     if (!res.ok) {
